@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الكوتشنق | معايير ICF</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --dark: #0D1117;
+    --dark2: #161B22;
+    --dark3: #1E2530;
+    --dark4: #252D3A;
+    --text: #E6EDF3;
+    --text-soft: #8B949E;
+    --acc: #3FB68A;
+    --pcc: #5B9BD5;
+    --mcc: #C9A84C;
+    --red: #E05C5C;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #0D1117 0%, #1a1f2e 50%, #0D1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    color: var(--text-soft);
+    font-size: 14px;
+    max-width: 500px;
+    margin: 0 auto 24px;
+  }
+
+  /* LEVEL BADGES */
+  .levels {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .level-badge {
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid;
+  }
+  .level-badge.acc  { border-color: var(--acc);  color: var(--acc);  background: rgba(63,182,138,0.08); }
+  .level-badge.pcc  { border-color: var(--pcc);  color: var(--pcc);  background: rgba(91,155,213,0.08); }
+  .level-badge.mcc  { border-color: var(--mcc);  color: var(--mcc);  background: rgba(201,168,76,0.08); }
+  .level-badge:hover, .level-badge.active { opacity: 1; filter: brightness(1.3); }
+
+  /* NAV TABS */
+  .nav-wrap {
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--text-soft);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 14px 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* MAIN */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(201,168,76,0.4); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .card-title { font-size: 15px; font-weight: 700; flex: 1; }
+  .card-sub { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+  .card-arrow {
+    color: var(--text-soft);
+    transition: transform 0.3s;
+    font-size: 12px;
+  }
+  .card.open .card-arrow { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .card.open .card-body { display: block; }
+
+  /* QUESTION BLOCKS */
+  .q-section { margin-bottom: 16px; }
+  .q-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 16px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .q-list { list-style: none; }
+  .q-list li {
+    background: var(--dark3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    border-right: 3px solid transparent;
+    transition: all 0.15s;
+    cursor: pointer;
+    position: relative;
+  }
+  .q-list li:hover { border-right-color: var(--gold); background: var(--dark4); }
+  .q-list li.copied { border-right-color: var(--acc); }
+  .copy-hint {
+    font-size: 10px;
+    color: var(--acc);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .q-list li.copied .copy-hint { opacity: 1; }
+
+  .level-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .tag-acc { background: rgba(63,182,138,0.2); color: var(--acc); }
+  .tag-pcc { background: rgba(91,155,213,0.2); color: var(--pcc); }
+  .tag-mcc { background: rgba(201,168,76,0.2); color: var(--mcc); }
+
+  /* COMPARISON TABLE */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  .comp-table th {
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .comp-table th:first-child { text-align: right; color: var(--text-soft); }
+  .comp-table th.acc-h { color: var(--acc); background: rgba(63,182,138,0.08); }
+  .comp-table th.pcc-h { color: var(--pcc); background: rgba(91,155,213,0.08); }
+  .comp-table th.mcc-h { color: var(--mcc); background: rgba(201,168,76,0.08); }
+  .comp-table td {
+    padding: 10px 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    vertical-align: top;
+    text-align: center;
+  }
+  .comp-table td:first-child { text-align: right; font-weight: 600; color: var(--text-soft); font-size: 12px; }
+  .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--text-soft);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .check-box.done { background: var(--acc); border-color: var(--acc); }
+  .check-box.done::after { content: '✓'; color: white; font-size: 12px; font-weight: 700; }
+  .check-text { flex: 1; }
+  .check-text.done-text { text-decoration: line-through; color: var(--text-soft); }
+
+  /* ALERT BOXES */
+  .alert {
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-warn { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); }
+  .alert-info { background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); }
+  .alert-ok   { background: rgba(63,182,138,0.08); border: 1px solid rgba(63,182,138,0.2); }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stat-box {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 11px; color: var(--text-soft); }
+
+  /* SECTION TITLE */
+  .sec-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 8px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-title span { color: var(--gold); }
+
+  /* TOOLTIP */
+  .tip {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+
+  /* PROGRESS TRACKER */
+  .progress-bar-wrap {
+    background: var(--dark3);
+    border-radius: 6px;
+    height: 8px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.4s;
+  }
+
+  /* FLOATING COPY SUCCESS */
+  #toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--acc);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .hero { padding: 28px 16px 24px; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .comp-table { font-size: 11px; }
+    .comp-table th, .comp-table td { padding: 8px 6px; }
+  }
+
+  /* Color per competency */
+  .c1 { background: rgba(201,168,76,0.15); }
+  .c2 { background: rgba(91,155,213,0.15); }
+  .c3 { background: rgba(63,182,138,0.15); }
+  .c4 { background: rgba(200,100,200,0.15); }
+  .c5 { background: rgba(255,140,60,0.15); }
+  .c6 { background: rgba(100,180,255,0.15); }
+  .c7 { background: rgba(255,200,60,0.15); }
+  .c8 { background: rgba(180,120,255,0.15); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">ICF · MCC Standard</div>
+  <h1>دليل <span>الكوتشنق</span> الاحترافي</h1>
+  <p>مرجعك الشامل لجلسات الكوتشنق وفق معايير ICF — ACC · PCC · MCC</p>
+  <div class="levels">
+    <div class="level-badge acc">ACC · مبتدئ</div>
+    <div class="level-badge pcc">PCC · محترف</div>
+    <div class="level-badge mcc">MCC · خبير</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('competencies')">🎯 الكفاءات الـ8</button>
+    <button class="tab-btn" onclick="showTab('questions')">💬 بنك الأسئلة</button>
+    <button class="tab-btn" onclick="showTab('compare')">📊 ACC vs PCC vs MCC</button>
+    <button class="tab-btn" onclick="showTab('session')">📋 بروتوكول الجلسة</button>
+    <button class="tab-btn" onclick="showTab('avoid')">⚠️ أخطاء شائعة</button>
+    <button class="tab-btn" onclick="showTab('checklist')">✅ قائمة التحقق</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== TAB 1: COMPETENCIES ===== -->
+<div id="tab-competencies" class="section active">
+  <div class="sec-title">🎯 الكفاءات <span>الثماني</span> لـ ICF</div>
+
+  <!-- C1 -->
+  <div class="card" id="c1">
+    <div class="card-header" onclick="toggleCard('c1')">
+      <div class="card-icon c1">🤝</div>
+      <div class="flex-1">
+        <div class="card-title">١ · الأخلاقيات والمهنية</div>
+        <div class="card-sub">Demonstrates Ethical Practice</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>الكوتش يُطبّق أخلاقيات ICF في كل جلسة — السرية، الحدود، الشفافية.</span></div>
+      <div class="q-label">ما يجب إظهاره</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">الحفاظ على سرية العميل دائماً <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">توضيح حدود العلاقة في بداية العقد <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">الإفصاح عن أي تضارب مصالح <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">التمييز الواضح بين الكوتشنق والعلاج النفسي <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C2 -->
+  <div class="card" id="c2">
+    <div class="card-header" onclick="toggleCard('c2')">
+      <div class="card-icon c2">📋</div>
+      <div>
+        <div class="card-title">٢ · تأسيس الاتفاقية</div>
+        <div class="card-sub">Establishes & Maintains Agreements</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>تحديد هدف واضح وقابل للقياس في بداية كل جلسة — وليس فقط العقد الأولي.</span></div>
+      <div class="q-label">أسئلة تأسيس الاتفاقية</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الذي تريد أن تحقق تحديداً من هذه الجلسة؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف ستعرف أن هذه الجلسة كانت ناجحة بالنسبة لك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما المهم بالنسبة لك أن نركز عليه اليوم؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي تريد المغادرة به في نهاية جلستنا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف يرتبط هدف اليوم بما تسعى إليه بشكل أعمق؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC+</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C3 -->
+  <div class="card" id="c3">
+    <div class="card-header" onclick="toggleCard('c3')">
+      <div class="card-icon c3">🌀</div>
+      <div>
+        <div class="card-title">٣ · الثقة والأمان</div>
+        <div class="card-sub">Cultivates Trust & Safety</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>خلق بيئة آمنة تمنح العميل حرية التعبير الكامل دون خوف من الحكم.</span></div>
+      <div class="q-label">أدوات بناء الثقة</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">هنا لا يوجد إجابة صح أو خطأ، شاركني ما يخطر ببالك <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">أنا هنا معك بالكامل — خذ وقتك <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما قلته الآن شجاع جداً، شكراً لثقتك <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لاحظت أن هذا الموضوع مهم لك، هل أنت مرتاح للتعمق فيه؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C4 -->
+  <div class="card" id="c4">
+    <div class="card-header" onclick="toggleCard('c4')">
+      <div class="card-icon c4">🧘</div>
+      <div>
+        <div class="card-title">٤ · الحضور الكامل</div>
+        <div class="card-sub">Maintains Coaching Presence</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>أنت موجود بالكامل — جسداً وعقلاً وحدساً. لا تشتت، لا أجندة مسبقة.</span></div>
+      <div class="q-label">كيف تُظهر الحضور</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">استخدام الصمت الواعي كأداة كوتشنق <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ماذا يحدث بداخلك الآن وأنت تتحدث عن هذا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لاحظت شيئاً — هل يمكنني مشاركتك إياه؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC+</span></li>
+        <li onclick="copyQ(this)">حدسي يقول لي X، ما رأيك في هذا؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C5 -->
+  <div class="card" id="c5">
+    <div class="card-header" onclick="toggleCard('c5')">
+      <div class="card-icon c5">👂</div>
+      <div>
+        <div class="card-title">٥ · الاستماع الفعّال</div>
+        <div class="card-sub">Listens Actively</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>استمع لما يُقال وما لا يُقال — الكلمات، النبرة، الجسد، التناقضات.</span></div>
+      <div class="q-label">مستويات الاستماع</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">لاحظت أنك استخدمت كلمة [X] مرتين — ماذا تعني لك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي لم تقله بعد وهو مهم؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما وراء ما قلته الآن؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لاحظت أن صوتك تغيّر عندما ذكرت هذا — ما الذي يحدث؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC+</span></li>
+        <li onclick="copyQ(this)">قلت أنك موافق، لكن أسمع شيئاً آخر — ما هو؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC+</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C6 -->
+  <div class="card" id="c6">
+    <div class="card-header" onclick="toggleCard('c6')">
+      <div class="card-icon c6">💡</div>
+      <div>
+        <div class="card-title">٦ · إثارة الوعي ← الأهم</div>
+        <div class="card-sub">Evokes Awareness</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-warn"><span class="alert-icon">⭐</span><span>هذه الكفاءة هي محور التقييم — تظهر فيها الفروق الجوهرية بين المستويات.</span></div>
+      <div class="q-label">مستوى ACC — استكشافي</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الذي يمنعك حتى الآن؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لو لم يكن هناك أي قيود، ماذا كنت ستفعل؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الافتراض الذي تحمله حول هذا الموقف؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف يخدمك هذا النمط؟ وكيف يُعيقك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي اكتشفته عن نفسك من خلال هذا الحديث؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+      <div class="q-label">مستوى PCC — معتقدات وهوية</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الذي هذا الموقف يكشفه عن معتقداتك الجوهرية؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC</span></li>
+        <li onclick="copyQ(this)">كيف تُعرّف نفسك من خلال هذا التحدي؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC</span></li>
+        <li onclick="copyQ(this)">لو نظرت لهذا بعد ١٠ سنوات، ماذا سترى؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC</span></li>
+        <li onclick="copyQ(this)">ما الذي أنت تحميه بعدم التغيير؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC</span></li>
+      </ul>
+      <div class="q-label">مستوى MCC — تحولي عميق</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">من أنت بدون هذه القصة التي تحكيها لنفسك؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+        <li onclick="copyQ(this)">ما الذي سيكون مختلفاً في حياتك لو آمنت بعكس هذا المعتقد؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+        <li onclick="copyQ(this)">ما المعنى الأعمق الذي تُعطيه لهذا الموقف؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+        <li onclick="copyQ(this)">ما الذي قيمك تطلبه منك الآن؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C7 -->
+  <div class="card" id="c7">
+    <div class="card-header" onclick="toggleCard('c7')">
+      <div class="card-icon c7">🌱</div>
+      <div>
+        <div class="card-title">٧ · دعم نمو العميل</div>
+        <div class="card-sub">Facilitates Client Growth</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-ok"><span class="alert-icon">✅</span><span>PCC و MCC: الهدف ليس فقط خطة عمل — بل تحول داخلي يحمله العميل من الجلسة.</span></div>
+      <div class="q-label">أسئلة الإغلاق — ACC</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الخطوة الأولى التي ستقوم بها بعد هذه الجلسة؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما مدى التزامك بهذه الخطوة من ١ إلى ١٠؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف ستحاسب نفسك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ماذا تحتاج لتدعم نفسك في تنفيذ ذلك؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+      <div class="q-label">أسئلة التحول — PCC/MCC</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الذي تغيّر في نظرتك لنفسك بعد هذه الجلسة؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC+</span></li>
+        <li onclick="copyQ(this)">من ستكون أنت بعد تطبيق هذا؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-pcc">PCC+</span></li>
+        <li onclick="copyQ(this)">ما الذي لن يكون ممكناً أن تتجاهله بعد اليوم؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+        <li onclick="copyQ(this)">ما الحكمة الكبرى التي أخذتها من هذه الجلسة؟ <span class="copy-hint">نسخ</span><span class="level-tag tag-mcc">MCC</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C8 -->
+  <div class="card" id="c8">
+    <div class="card-header" onclick="toggleCard('c8')">
+      <div class="card-icon c8">🔄</div>
+      <div>
+        <div class="card-title">٨ · التواصل المباشر</div>
+        <div class="card-sub">Communicates Effectively</div>
+      </div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>الأسئلة القوية — قصيرة، مفتوحة، تخدم العميل لا فضول الكوتش.</span></div>
+      <div class="q-label">معايير السؤال القوي</div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">سؤال واحد في كل مرة — لا أسئلة مركبة <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">يبدأ بـ: ما، كيف، ماذا — لا يبدأ بـ: لماذا (يُثير الدفاعية) <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">السؤال يخدم العميل — ليس ليُثير انبهار الآخرين <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">انتظر الصمت — لا تملأه بسرعة <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 2: QUESTIONS BANK ===== -->
+<div id="tab-questions" class="section">
+  <div class="sec-title">💬 بنك <span>الأسئلة</span> الشامل</div>
+
+  <div class="card open" id="qb1">
+    <div class="card-header" onclick="toggleCard('qb1')">
+      <div class="card-icon c2">🎯</div>
+      <div><div class="card-title">أسئلة الافتتاح وتحديد الهدف</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الذي يشغل تفكيرك أكثر شيء في هذه المرحلة؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الموضوع الذي لو تناولناه اليوم سيحدث فرقاً حقيقياً؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">أين أنت الآن وأين تريد أن تكون في نهاية جلستنا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الأهمية الحقيقية لهذا الهدف بالنسبة لك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف يبدو النجاح بالنسبة لك؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="qb2">
+    <div class="card-header" onclick="toggleCard('qb2')">
+      <div class="card-icon c6">🔍</div>
+      <div><div class="card-title">أسئلة الاستكشاف العميق</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">أخبرني أكثر عن هذا... <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي لا تقوله وهو ضروري أن يُقال؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لو كنت تنظر لهذا من الخارج، ماذا ستلاحظ؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما أكبر شيء اكتشفته عن نفسك في هذا الموضوع؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي هذا الموقف يُعلمك إياه؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لو كان لديك كل الإجابات، ما الذي ستقوله لنفسك؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="qb3">
+    <div class="card-header" onclick="toggleCard('qb3')">
+      <div class="card-icon c4">🧠</div>
+      <div><div class="card-title">أسئلة المعتقدات والأنماط</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما الافتراض الذي تأخذه كحقيقة ولم تختبره؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">هل هذا النمط ظهر معك في مواقف أخرى؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">من أين جاء هذا المعتقد؟ هل هو حقاً لك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لو كان هذا المعتقد خاطئاً، كيف سيتغير كل شيء؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي تخسره لو تخليت عن هذا النمط؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="qb4">
+    <div class="card-header" onclick="toggleCard('qb4')">
+      <div class="card-icon c3">⚡</div>
+      <div><div class="card-title">أسئلة إعادة الإطار — Reframing</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">لو كان هذا التحدي هدية، ما الذي بداخلها؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف يمكن أن ترى هذا الموقف بعيون مختلفة؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">لو كان أفضل نسخة من نفسك هنا، كيف كان سيتعامل مع هذا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما القوة التي يتطلبها منك هذا الموقف؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الفرصة المخفية في هذا التحدي؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="qb5">
+    <div class="card-header" onclick="toggleCard('qb5')">
+      <div class="card-icon c7">🚀</div>
+      <div><div class="card-title">أسئلة الإغلاق والالتزام</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما أهم شيء خرجت به من جلستنا اليوم؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الخطوة الأولى التي ستتخذها قبل جلستنا القادمة؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما مدى التزامك من ١ إلى ١٠؟ وما الذي سيجعله ١٠؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">من يمكنه دعمك في تطبيق هذا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي ستقوله لنفسك لو واجهت عقبة؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 3: COMPARISON ===== -->
+<div id="tab-compare" class="section">
+  <div class="sec-title">📊 مقارنة <span>ACC · PCC · MCC</span></div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--acc)">١٠٠</div>
+      <div class="stat-label">ساعة كوتشنق — ACC</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--pcc)">٥٠٠</div>
+      <div class="stat-label">ساعة كوتشنق — PCC</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--mcc)">٢٥٠٠</div>
+      <div class="stat-label">ساعة كوتشنق — MCC</div>
+    </div>
+  </div>
+
+  <div class="card open" id="cmp1">
+    <div class="card-header" onclick="toggleCard('cmp1')">
+      <div class="card-icon c6">📋</div>
+      <div><div class="card-title">جدول المقارنة الشامل</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <table class="comp-table">
+        <tr>
+          <th>المعيار</th>
+          <th class="acc-h">ACC</th>
+          <th class="pcc-h">PCC</th>
+          <th class="mcc-h">MCC</th>
+        </tr>
+        <tr>
+          <td>مدة الجلسة</td>
+          <td>٤٥–٦٠ د</td>
+          <td>٦٠+ د</td>
+          <td>٦٠+ د</td>
+        </tr>
+        <tr>
+          <td>كلام العميل</td>
+          <td>٧٠٪+</td>
+          <td>٨٠٪+</td>
+          <td>٨٥٪+</td>
+        </tr>
+        <tr>
+          <td>عمق الأسئلة</td>
+          <td>استكشافي</td>
+          <td>معتقدات وهوية</td>
+          <td>تحولي عميق</td>
+        </tr>
+        <tr>
+          <td>الاتفاقية</td>
+          <td>هدف الجلسة</td>
+          <td>+ ربط بقيم العميل</td>
+          <td>+ الهدف الأعمق للحياة</td>
+        </tr>
+        <tr>
+          <td>إثارة الوعي</td>
+          <td>أفكار وسلوكيات</td>
+          <td>معتقدات جوهرية</td>
+          <td>تحول في الهوية</td>
+        </tr>
+        <tr>
+          <td>الحضور</td>
+          <td>واعٍ ومرتاح</td>
+          <td>+ مشاركة الحدس</td>
+          <td>الحضور = أداة تحويل</td>
+        </tr>
+        <tr>
+          <td>الإغلاق</td>
+          <td>خطة وخطوات</td>
+          <td>+ تحول داخل الجلسة</td>
+          <td>+ تحول في الهوية</td>
+        </tr>
+        <tr>
+          <td>الاستماع</td>
+          <td>كلمات ومعاني</td>
+          <td>+ مشاعر وتناقضات</td>
+          <td>+ ما لم يُقَل أبداً</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="cmp2">
+    <div class="card-header" onclick="toggleCard('cmp2')">
+      <div class="card-icon c8">💬</div>
+      <div><div class="card-title">نفس السؤال — ثلاثة مستويات</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="q-label">الموقف: العميل يقول "أريد ترقية"</div>
+      
+      <div class="alert alert-ok" style="margin-top:12px">
+        <span class="alert-icon">🟢</span>
+        <span><strong>ACC:</strong> "ما الذي تحتاج تطويره للوصول لتلك الترقية؟"</span>
+      </div>
+      <div class="alert alert-info" style="margin-top:8px">
+        <span class="alert-icon">🔵</span>
+        <span><strong>PCC:</strong> "لماذا هذه الترقية مهمة لك على مستوى أعمق من الراتب أو المنصب؟"</span>
+      </div>
+      <div class="alert" style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);margin-top:8px">
+        <span class="alert-icon">🟡</span>
+        <span><strong>MCC:</strong> "من تريد أن تكون أنت — بمعزل عن هذه الترقية؟ وكيف يخدم ذلك من أنت في جوهرك؟"</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 4: SESSION PROTOCOL ===== -->
+<div id="tab-session" class="section">
+  <div class="sec-title">📋 بروتوكول <span>الجلسة</span></div>
+
+  <div class="card open" id="s1">
+    <div class="card-header" onclick="toggleCard('s1')">
+      <div class="card-icon c2">🔓</div>
+      <div><div class="card-title">المرحلة ١ · الافتتاح (٥–١٠ د)</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">كيف أنت اليوم؟ ما الذي تحمله معك لجلستنا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الموضوع الذي تريد التركيز عليه اليوم؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف ستعرف في نهاية الجلسة أنها كانت مثمرة؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما مدى أهمية هذا الموضوع لك من ١ إلى ١٠؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="s2">
+    <div class="card-header" onclick="toggleCard('s2')">
+      <div class="card-icon c6">🔍</div>
+      <div><div class="card-title">المرحلة ٢ · الاستكشاف (٢٥–٣٥ د)</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info"><span class="alert-icon">💡</span><span>هذه أطول مرحلة — ابقَ مع العميل، لا تتعجل للحلول.</span></div>
+      <ul class="q-list">
+        <li onclick="copyQ(this)">أخبرني أكثر... <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي يحدث حقاً هنا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي يمنعك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الخيارات المتاحة لك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي لم تجرّبه بعد؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="s3">
+    <div class="card-header" onclick="toggleCard('s3')">
+      <div class="card-icon c7">🚀</div>
+      <div><div class="card-title">المرحلة ٣ · الإغلاق والالتزام (١٠–١٥ د)</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="q-list">
+        <li onclick="copyQ(this)">ما أهم رؤية خرجت بها من جلستنا؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الخطوة الواحدة التي ستتخذها قبل لقاءنا القادم؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما مدى التزامك من ١ إلى ١٠؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">كيف تريد أن تُحاسب نفسك؟ <span class="copy-hint">نسخ</span></li>
+        <li onclick="copyQ(this)">ما الذي تريد أن تُكمّله بنفسك قبل جلستنا؟ <span class="copy-hint">نسخ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="s4">
+    <div class="card-header" onclick="toggleCard('s4')">
+      <div class="card-icon c1">📊</div>
+      <div><div class="card-title">المعايير الكمية للتقييم</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <table class="comp-table">
+        <tr>
+          <th>المعيار</th>
+          <th class="acc-h">ACC</th>
+          <th class="pcc-h">PCC</th>
+          <th class="mcc-h">MCC</th>
+        </tr>
+        <tr><td>مدة الجلسة</td><td>٤٥–٦٠ د</td><td>٦٠+ د</td><td>٦٠+ د</td></tr>
+        <tr><td>ساعات التدريب</td><td>٦٠ د</td><td>١٢٥ د</td><td>٢٠٠ د</td></tr>
+        <tr><td>ساعات الكوتشنق</td><td>١٠٠</td><td>٥٠٠</td><td>٢٥٠٠</td></tr>
+        <tr><td>منها مدفوعة</td><td>٧٥</td><td>٤٥٠</td><td>٢٢٥٠</td></tr>
+        <tr><td>جلسات مسجلة للتقديم</td><td>٢</td><td>٢</td><td>٢</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 5: AVOID ===== -->
+<div id="tab-avoid" class="section">
+  <div class="sec-title">⚠️ <span>أخطاء</span> شائعة يجب تجنبها</div>
+
+  <div class="card open" id="av1">
+    <div class="card-header" onclick="toggleCard('av1')">
+      <div class="card-icon" style="background:rgba(224,92,92,0.15)">🚫</div>
+      <div><div class="card-title">أخطاء تُسقطك في تقييم ACC</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="checklist" id="av1-list">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">إعطاء نصائح أو حلول جاهزة بدلاً من الأسئلة</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">أسئلة مغلقة تجاب بنعم/لا</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">القفز للحلول قبل فهم الموضوع كاملاً</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">ملء الصمت بسرعة — أعطِ مساحة للتفكير</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">الكوتش يتكلم أكثر من ٣٠٪ من وقت الجلسة</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">إعطاء رأيك الشخصي دون طلب من العميل</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">عدم تأسيس اتفاقية واضحة في البداية</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="av2">
+    <div class="card-header" onclick="toggleCard('av2')">
+      <div class="card-icon" style="background:rgba(91,155,213,0.15)">⛔</div>
+      <div><div class="card-title">أخطاء تُسقطك في تقييم PCC</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">الاكتفاء بأسئلة سطحية دون الوصول للمعتقدات</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">تجاهل المشاعر ولغة الجسد التي يُظهرها العميل</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">إنهاء الجلسة بخطة فقط دون أي تحول داخلي</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">عدم استخدام الحدس والحضور كأداة كوتشنق</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">عدم ربط هدف الجلسة بالقيم الأعمق للعميل</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">التحرك بسرعة دون إعطاء العميل وقتاً للمعالجة</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="av3">
+    <div class="card-header" onclick="toggleCard('av3')">
+      <div class="card-icon c2">✅</div>
+      <div><div class="card-title">جدول: الخاطئ مقابل الصحيح</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <table class="comp-table">
+        <tr>
+          <th style="color:var(--red)">❌ خاطئ</th>
+          <th style="color:var(--acc)">✅ صحيح</th>
+        </tr>
+        <tr>
+          <td>"ما رأيك أن تجرّب X؟"</td>
+          <td>"ما الخيارات المتاحة لك؟"</td>
+        </tr>
+        <tr>
+          <td>"في تجربتي، هذا يعمل..."</td>
+          <td>"ما الذي جرّبته سابقاً؟"</td>
+        </tr>
+        <tr>
+          <td>"هل أنت قلق من هذا؟" (مغلق)</td>
+          <td>"ما الذي تشعر به تجاه هذا؟"</td>
+        </tr>
+        <tr>
+          <td>"لماذا لم تفعل X؟" (دفاعي)</td>
+          <td>"ما الذي أوقفك حتى الآن؟"</td>
+        </tr>
+        <tr>
+          <td>سؤالان معاً: "ما X؟ وكيف Y؟"</td>
+          <td>سؤال واحد فقط في كل مرة</td>
+        </tr>
+        <tr>
+          <td>تفسير ما قاله العميل</td>
+          <td>"ما الذي تعني بـ X تحديداً؟"</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 6: CHECKLIST ===== -->
+<div id="tab-checklist" class="section">
+  <div class="sec-title">✅ قائمة <span>التحقق</span> قبل الجلسة</div>
+
+  <div class="card open" id="ch1">
+    <div class="card-header" onclick="toggleCard('ch1')">
+      <div class="card-icon c3">📝</div>
+      <div><div class="card-title">قبل بدء الجلسة المسجلة</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">التأكد من جودة التسجيل الصوتي / المرئي</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">الحصول على موافقة العميل على التسجيل خطياً</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">مراجعة ملاحظات الجلسة السابقة</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">تجهيز بيئة هادئة بدون انقطاعات</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">مراجعة هدف العميل الرئيسي من العقد</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="ch2">
+    <div class="card-header" onclick="toggleCard('ch2')">
+      <div class="card-icon c5">🎙️</div>
+      <div><div class="card-title">خلال الجلسة — ما يجب مراقبته</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">تأسيس اتفاقية واضحة في أول ٥ دقائق</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">العميل يتكلم ٧٠–٨٥٪ من الوقت</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">أسئلة مفتوحة طوال الجلسة</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">الصمت الواعي بعد كل سؤال عميق</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">الاستماع للمشاعر وليس فقط الكلمات</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">إثارة لحظة وعي واضحة داخل الجلسة</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">إغلاق بالتزام محدد وقابل للقياس</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="ch3">
+    <div class="card-header" onclick="toggleCard('ch3')">
+      <div class="card-icon c7">📁</div>
+      <div><div class="card-title">متطلبات التقديم لـ ICF</div></div>
+      <div class="card-arrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div class="q-label">ACC</div>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">١٠٠ ساعة كوتشنق (٧٥ مدفوعة)</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">٦٠ ساعة تدريب من برنامج معتمد</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">٨ ساعات mentor coaching</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">جلستان مسجلتان + نص مكتوب</div></li>
+      </ul>
+      <div class="q-label">PCC</div>
+      <ul class="checklist">
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">٥٠٠ ساعة كوتشنق (٤٥٠ مدفوعة)</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">١٢٥ ساعة تدريب من برنامج معتمد</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">١٠ ساعات mentor coaching</div></li>
+        <li><div class="check-box" onclick="toggleCheck(this)"></div><div class="check-text">جلستان مسجلتان + نص مكتوب</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<!-- TOAST -->
+<div id="toast">✓ تم النسخ</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+function toggleCheck(box) {
+  box.classList.toggle('done');
+  const text = box.nextElementSibling;
+  text.classList.toggle('done-text');
+}
+
+function copyQ(li) {
+  const text = li.childNodes[0].textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    li.classList.add('copied');
+    setTimeout(() => li.classList.remove('copied'), 1500);
+    showToast();
+  }).catch(() => {
+    showToast();
+  });
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Open first card in each tab by default
+document.querySelectorAll('.card:first-of-type').forEach(c => {
+  // already set via class "open" where needed
+});
+</script>
+</body>
+</html>
